@@ -1,11 +1,19 @@
 import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+
 export const ResultPage = () => {
+    const [dataSurvey, setDataSurvey] = useState([])
+
+    useEffect(()=>{
+        const data = JSON.parse(localStorage.getItem("surveyData")) || []
+        setDataSurvey(data)
+    },[])
   return (
-    <div className="bg-gray-300 min-h-screen flex justify-center font-sans">
-      <form className="bg-gray-300 w-[80%] min-h-screen p-5 pt-0">
+    <div className="bg-gray-500 min-h-screen flex justify-center">
+      <form className="bg-gray-500 w-[80%] min-h-screen p-5 pt-0">
 
         {/* Header */}
-        <header className="border-t-8 border-slate-500 rounded-lg mb-3 bg-white p-10">
+        <header className="border-t-8 border-b-blue-950 rounded-lg bg-white p-10">
           <h1 className="text-2xl font-bold">Hasil Survey</h1>
         </header>
 
@@ -24,8 +32,17 @@ export const ResultPage = () => {
                 </tr>
               </thead>
 
-              <tbody id="tbody">
-                {/* data survey */}
+              <tbody>
+                {dataSurvey.map((item, index) => (
+                    <tr key={index}>
+                        <td className="border px-3 py-2">{index + 1}</td>
+                        <td className="border px-3 py-2">{item.name}</td>
+                        <td className="border px-3 py-2">{item.age}</td>
+                        <td className="border px-3 py-2">{item.gender}</td>
+                        <td className="border px-3 py-2">{item.isPerokok}</td>
+                        <td className="border px-3 py-2">{item.jenisRokok.join(", ")}</td>
+                    </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -35,7 +52,7 @@ export const ResultPage = () => {
         <div className="m-3">
           <Link
             to="/"
-            className="inline-block bg-slate-500 text-white px-4 py-2 rounded-lg hover:bg-slate-600 transition">
+            className="inline-block bg-blue-950 text-white px-4 py-2 rounded-lg hover:bg-black transition">
             Back to Survey
           </Link>
         </div>

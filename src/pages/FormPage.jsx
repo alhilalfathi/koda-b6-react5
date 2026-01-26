@@ -7,14 +7,18 @@ import { InputRadio } from "../components/InputRadio"
 export const FormPage = () => {
 const {handleSubmit, register} = useForm()
 function submitForm(value){
-console.log(value)
+const oldData = JSON.parse(localStorage.getItem("surveyData")) || []
+
+const newData = [...oldData, value]
+localStorage.setItem("surveyData",JSON.stringify(newData))
+
 }
   return (
     <div className="bg-gray-500 h-full flex flex-col justify-center items-center">
       <form onSubmit={handleSubmit(submitForm)} className="w-[70%] flex flex-col gap-5">
 
         {/* Header */}
-        <header className="flex flex-col gap-3 bg-white h-60 px-10 pt-20 border-6 border-white border-t-indigo-950 rounded-2xl">
+        <header className="flex flex-col gap-3 border-t-8 border-b-blue-950 rounded-lg mb-3 bg-white p-10">
           <h1 className="font-bold text-4xl">Survey Perokok</h1>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quidem numquam voluptas minus quasi debitis?</p>
         </header>
@@ -71,7 +75,7 @@ console.log(value)
             </div>
           </div>
           {/* submit button  */}
-          <div className="w-25 h-10 bg-blue-950 mb-10 flex justify-center items-center rounded-xl">
+          <div className="w-25 h-10 bg-blue-950 hover:bg-black mb-10 flex justify-center items-center rounded-xl">
             <button type="submit" className="text-white text-xl">Submit</button>
           </div>
 

@@ -1,17 +1,19 @@
 import { useForm } from "react-hook-form"
 import { InputDiv } from "../components/InputDiv"
 import { InputRadio } from "../components/InputRadio"
+import { useNavigate } from "react-router-dom"
 
 
 
 export const FormPage = () => {
+  const navigate = useNavigate()
 const {handleSubmit, register} = useForm()
 function submitForm(value){
 const oldData = JSON.parse(localStorage.getItem("surveyData")) || []
 
 const newData = [...oldData, value]
 localStorage.setItem("surveyData",JSON.stringify(newData))
-
+navigate("/result")
 }
   return (
     <div className="bg-gray-500 h-full flex flex-col justify-center items-center">
